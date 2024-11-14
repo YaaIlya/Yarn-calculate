@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление запасами пряжи</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Управление запасами пряжи</h1>
+
+        <!-- Список пряжи -->
+        <h2>Список пряжи</h2>
+        <ul class="yarn-list">
+            {% for yarn in yarns %}
+                <li class="yarn-item">
+                    <div class="yarn-info">
+                        <p><strong>Фирма:</strong> {{ yarn.brand }}</p>
+                        <p><strong>Название:</strong> {{ yarn.name }}</p>
+                        <p><strong>Страна:</strong> {{ yarn.country }}</p>
+                        <p><strong>Цвет:</strong> {{ yarn.color }}</p>
+                        <p><strong>Количество:</strong> {{ yarn.quantity }}</p>
+                    </div>
+                    <div class="yarn-actions">
+                        <a href="{{ url_for('delete_yarn_route', yarn_id=yarn.id) }}" class="btn-secondary">Удалить</a>
+                        <form method="post" action="{{ url_for('update_yarn_route', yarn_id=yarn.id) }}" class="update-form">
+                            <input type="text" name="brand" placeholder="Фирма" value="{{ yarn.brand }}">
+                            <input type="text" name="name" placeholder="Название" value="{{ yarn.name }}">
+                            <input type="text" name="country" placeholder="Страна" value="{{ yarn.country }}">
+                            <input type="text" name="color" placeholder="Цвет" value="{{ yarn.color }}">
+                            <input type="number" name="quantity" placeholder="Количество" value="{{ yarn.quantity }}">
+                            <button type="submit" class="btn-primary">Обновить</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Кнопка для удаления всей пряжи -->
+        <a href="{{ url_for('delete_all_yarns_route') }}" class="btn-danger">Удалить всю пряжу</a>
+
+        <!-- Форма для добавления новой пряжи -->
+        <h2>Добавить новую пряжу</h2>
+        <form method="post" class="yarn-form">
+            <input type="text" name="brand" placeholder="Фирма" required>
+            <input type="text" name="name" placeholder="Название" required>
+            <input type="text" name="country" placeholder="Страна" required>
+            <input type="text" name="color" placeholder="Цвет" required>
+            <input type="number" name="quantity" placeholder="Количество" required>
+            <button type="submit" class="btn-primary">Добавить пряжу</button>
+        </form>
+    </div>
+</body>
+</html>
