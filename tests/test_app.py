@@ -18,7 +18,7 @@ class FlaskAppTestCase(unittest.TestCase):
 
     def test_readme_file(self):
         if os.getenv('IGNORE_README_CHECK', 'false') == 'true':
-            self.assertTrue(True)  # Игнорируем проверку
+            self.assertTrue(True) 
         else:
             self.assertTrue(os.path.exists('readme.txt'))
 
