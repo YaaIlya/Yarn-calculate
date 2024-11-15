@@ -1,5 +1,6 @@
 # tests/test_app.py
 import unittest
+import os
 from app import app
 
 class FlaskAppTestCase(unittest.TestCase):
@@ -14,6 +15,10 @@ class FlaskAppTestCase(unittest.TestCase):
     def test_yarns_page(self):
         response = self.app.get('/yarns')
         self.assertEqual(response.status_code, 200)
+
+    def test_readme_file(self):
+        # Проверяем, существует ли файл readme.txt
+        self.assertTrue(os.path.exists('readme.txt'))
 
 if __name__ == "__main__":
     unittest.main()
